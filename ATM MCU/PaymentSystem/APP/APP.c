@@ -120,10 +120,8 @@ uint8_t App_Get_Command(void)
 	if(Button_Read(ATM_Buttons , ATM_SELECT_MODE_Button_INDEX) == State_LOW)
 	{
 		#else
-				printf_P(PSTR("****************************************************\n"	));
-				printf_P(PSTR("******** Please Enter Command choice ***************\n" ));
-				printf_P(PSTR("****************************************************\n"	));
-				printf_P(PSTR(" \n" ));
+
+				String_F_PrintLine(PSTR("Please Enter Command choice"));
 		do
 		{
 			ATM_Terminal_GetString(Command , 10);
@@ -132,10 +130,7 @@ uint8_t App_Get_Command(void)
 				break ;
 			}else
 			{
-				printf_P(PSTR("****************************************************\n"	));
-				printf_P(PSTR("******** Wrong Command Please Try again ************\n" ));
-				printf_P(PSTR("****************************************************\n"	));
-				printf_P(PSTR(" \n" ));
+				String_F_PrintLine(PSTR("Wrong Command Please Try again"));
 			}
 		} while (1);
 		
@@ -144,37 +139,21 @@ uint8_t App_Get_Command(void)
 			#endif
 			SERVER_ADMIN_Get_Pass(StrName ,Password);
 			printf("Welcome ADMIN :,%s \n\n" , StrName);
-			printf_P(PSTR("****************************************************\n"	));
-			printf_P(PSTR("*********** Enter Your Password :  *****************\n" ));
-			printf_P(PSTR("****************************************************\n"	));
-			printf_P(PSTR(" \n" ));
+			String_F_PrintLine(PSTR("Enter Your Password :"));
 			memset(Command , 0 , ADMIN_USERNAME_LEN);
 			ATM_Terminal_GetString(Command , ADMIN_USERNAME_LEN);
 			while(strcmp((char *)Password , (char *)Command) != 0 )
 			{
-
-				printf_P(PSTR("****************************************************\n"	));
-				printf_P(PSTR("***************** Wrong Password !!! ***************\n" ));
-				printf_P(PSTR("****************************************************\n"	));
-				printf_P(PSTR(" \n" ));
+				String_F_PrintLine(PSTR("Wrong Password !!!"));
 				ATM_Terminal_GetString(Command , 10);
 			}
-
-				printf_P(PSTR("****************************************************\n"	));
-				printf_P(PSTR("******** Switching to programming mode  ***********\n" ));
-				printf_P(PSTR("****************************************************\n"	));
-				printf_P(PSTR(" \n" ));
-			
+				String_F_PrintLine(PSTR("Switching to programming mode"));			
 			return 1 ;
 			
 		}else{
 
 			// after exiting programming mode we will enter operation mode directly	
-
-			printf_P(PSTR("****************************************************\n"	));
-			printf_P(PSTR("********** Switching to OPERATION mode *************\n" ));
-			printf_P(PSTR("****************************************************\n"	));
-			printf_P(PSTR(" \n" ));
+			String_F_PrintLine(PSTR("Switching to OPERATION mode"));
 			return 0 ; 
 		}
 	
@@ -191,26 +170,12 @@ void APP_UPdate(void)
 	uint8_t Flag = 0 ;
 	LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_Dragons]));
 	LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_ATM_System]));
-	printf_P(PSTR("****************************************************\n"	));
-	printf_P(PSTR("*****************  "));
-	printf_P((char *)LCD_StrF[LCD_Print_Dragons]);
-	printf_P(PSTR(" ******************\n" ));
-	printf_P(PSTR("******************  "));
-	printf_P((char *)LCD_StrF[LCD_Print_ATM_System]);
-	printf_P(PSTR(" ****************\n" ));	
-	printf_P(PSTR("****************************************************\n"	));
-	printf_P(PSTR(" \n" ));
-
-
-	
+	String_F_PrintTwoLines(LCD_StrF[LCD_Print_Dragons] , LCD_StrF[LCD_Print_ATM_System] );
 	_delay_ms(ATM_DLEAY_IN_S);
 	LCD_Send_Command(LCD_COMMANED_CLEAR_LCD);
-	LCD_Send_String_WithLoc(1,5,(uint8_t *)"welcome ");	
-	printf_P(PSTR("****************************************************\n"	));
-	printf_P(PSTR("************************ welcome *******************\n" ));
-	printf_P(PSTR("****************************************************\n"	));
-	printf_P(PSTR(" \n" ));
+	LCD_Send_String_WithLoc(1,5,(uint8_t *)"welcome");	
 
+	String_F_PrintLine(PSTR("welcome"));
 	_delay_ms(ATM_DLEAY_IN_S);
 	LCD_Send_Command(LCD_COMMANED_CLEAR_LCD);	
 	

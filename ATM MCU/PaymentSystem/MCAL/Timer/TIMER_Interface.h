@@ -13,11 +13,8 @@
 #include <stdbool.h>
 #include <avr/interrupt.h>
 #include <stdint.h>
+#include <stdlib.h>
 
-
-
-
-#define  NULL ((void*)0) 
 
 
 

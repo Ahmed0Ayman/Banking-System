@@ -33,7 +33,7 @@ APP/SERVER/Server.d APP/SERVER/Server.o: ../APP/SERVER/Server.c \
  ../HAL/LED_BUTTONS/But_LED.h ../APP/SERVER/Server.h \
  ../HAL/Atmega32a\ KeyPad/KeyPad.h ../HAL/Atmega32a\ KeyPad/KeyPad_Pins.h \
  ../MCAL/Timer/TIMER_Interface.h ../HAL/DCMotor_Driver/Motor.h \
- ../MCAL/Utilities/Utilites.h
+ ../MCAL/Utilities/Utilites.h ../HAL/StringFlash/String_F.h
 
 ../APP/SERVER/Server.h:
 
@@ -126,3 +126,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 ../HAL/DCMotor_Driver/Motor.h:
 
 ../MCAL/Utilities/Utilites.h:
+
+../HAL/StringFlash/String_F.h:

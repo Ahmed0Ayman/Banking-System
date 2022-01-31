@@ -22,6 +22,8 @@ HAL\EEPROM\EEPROM.c
 
 HAL\LED_BUTTONS\But_LED.c
 
+HAL\StringFlash\String_F.c
+
 main.c
 
 MCAL\EXTI\HAL_EXIT.c
