@@ -16,6 +16,8 @@ HAL\Atmega32a lcd\Lcd-Driver.c
 
 HAL\Atmega32a lcd\LCD_Pins.c
 
+HAL\DCMotor_Driver\Motor.c
+
 HAL\EEPROM\EEPROM.c
 
 HAL\LED_BUTTONS\But_LED.c
@@ -35,4 +37,6 @@ MCAL\HAL_SPI\HAL_SPI.c
 MCAL\Timer\TIMER_Interface.c
 
 MCAL\UART\HAL_Uart.c
+
+MCAL\Utilities\Utilites.c
 

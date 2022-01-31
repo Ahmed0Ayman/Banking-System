@@ -187,6 +187,12 @@
     <Compile Include="HAL\Atmega32a lcd\LCD_Pins.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="HAL\DCMotor_Driver\Motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\DCMotor_Driver\Motor.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="HAL\EEPROM\EEPROM.c">
       <SubType>compile</SubType>
     </Compile>
@@ -250,6 +256,12 @@
     <Compile Include="MCAL\UART\HAL_Uart.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MCAL\Utilities\Utilites.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\Utilities\Utilites.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APP\" />
@@ -258,6 +270,7 @@
     <Folder Include="HAL\" />
     <Folder Include="HAL\Atmega32a KeyPad\" />
     <Folder Include="HAL\Atmega32a lcd\" />
+    <Folder Include="HAL\DCMotor_Driver\" />
     <Folder Include="HAL\EEPROM\" />
     <Folder Include="HAL\LED_BUTTONS\" />
     <Folder Include="MCAL\" />
@@ -268,9 +281,13 @@
     <Folder Include="MCAL\HAL_SPI\" />
     <Folder Include="MCAL\Timer\" />
     <Folder Include="MCAL\UART\" />
+    <Folder Include="MCAL\Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MCAL\HAL_ADC\readme.txt">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="MCAL\Utilities\Readme.md">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>

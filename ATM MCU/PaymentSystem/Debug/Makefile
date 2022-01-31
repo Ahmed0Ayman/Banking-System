@@ -39,6 +39,7 @@ SUBDIRS :=  \
 ../HAL/ \
 ../HAL/Atmega32a\ KeyPad/ \
 ../HAL/Atmega32a\ lcd/ \
+../HAL/DCMotor_Driver/ \
 ../HAL/EEPROM/ \
 ../HAL/LED_BUTTONS/ \
 ../MCAL/ \
@@ -48,7 +49,8 @@ SUBDIRS :=  \
 ../MCAL/HAL_I2C/ \
 ../MCAL/HAL_SPI/ \
 ../MCAL/Timer/ \
-../MCAL/UART/
+../MCAL/UART/ \
+../MCAL/Utilities/
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
@@ -60,6 +62,7 @@ C_SRCS +=  \
 ../HAL/Atmega32a\ KeyPad/KeyPad_Pins.c \
 ../HAL/Atmega32a\ lcd/Lcd-Driver.c \
 ../HAL/Atmega32a\ lcd/LCD_Pins.c \
+../HAL/DCMotor_Driver/Motor.c \
 ../HAL/EEPROM/EEPROM.c \
 ../HAL/LED_BUTTONS/But_LED.c \
 ../main.c \
@@ -69,7 +72,8 @@ C_SRCS +=  \
 ../MCAL/HAL_I2C/HAL_I2C.c \
 ../MCAL/HAL_SPI/HAL_SPI.c \
 ../MCAL/Timer/TIMER_Interface.c \
-../MCAL/UART/HAL_Uart.c
+../MCAL/UART/HAL_Uart.c \
+../MCAL/Utilities/Utilites.c
 
 
 PREPROCESSING_SRCS += 
@@ -86,6 +90,7 @@ HAL/Atmega32a\ KeyPad/KedPad.o \
 HAL/Atmega32a\ KeyPad/KeyPad_Pins.o \
 HAL/Atmega32a\ lcd/Lcd-Driver.o \
 HAL/Atmega32a\ lcd/LCD_Pins.o \
+HAL/DCMotor_Driver/Motor.o \
 HAL/EEPROM/EEPROM.o \
 HAL/LED_BUTTONS/But_LED.o \
 main.o \
@@ -95,7 +100,8 @@ MCAL/HAL_GPIO/HAL_GPIO.o \
 MCAL/HAL_I2C/HAL_I2C.o \
 MCAL/HAL_SPI/HAL_SPI.o \
 MCAL/Timer/TIMER_Interface.o \
-MCAL/UART/HAL_Uart.o
+MCAL/UART/HAL_Uart.o \
+MCAL/Utilities/Utilites.o
 
 OBJS_AS_ARGS +=  \
 APP/APP.o \
@@ -105,6 +111,7 @@ APP/SERVER/Server.o \
 "HAL/Atmega32a KeyPad/KeyPad_Pins.o" \
 "HAL/Atmega32a lcd/Lcd-Driver.o" \
 "HAL/Atmega32a lcd/LCD_Pins.o" \
+HAL/DCMotor_Driver/Motor.o \
 HAL/EEPROM/EEPROM.o \
 HAL/LED_BUTTONS/But_LED.o \
 main.o \
@@ -114,7 +121,8 @@ MCAL/HAL_GPIO/HAL_GPIO.o \
 MCAL/HAL_I2C/HAL_I2C.o \
 MCAL/HAL_SPI/HAL_SPI.o \
 MCAL/Timer/TIMER_Interface.o \
-MCAL/UART/HAL_Uart.o
+MCAL/UART/HAL_Uart.o \
+MCAL/Utilities/Utilites.o
 
 C_DEPS +=  \
 APP/APP.d \
@@ -124,6 +132,7 @@ HAL/Atmega32a\ KeyPad/KedPad.d \
 HAL/Atmega32a\ KeyPad/KeyPad_Pins.d \
 HAL/Atmega32a\ lcd/Lcd-Driver.d \
 HAL/Atmega32a\ lcd/LCD_Pins.d \
+HAL/DCMotor_Driver/Motor.d \
 HAL/EEPROM/EEPROM.d \
 HAL/LED_BUTTONS/But_LED.d \
 main.d \
@@ -133,7 +142,8 @@ MCAL/HAL_GPIO/HAL_GPIO.d \
 MCAL/HAL_I2C/HAL_I2C.d \
 MCAL/HAL_SPI/HAL_SPI.d \
 MCAL/Timer/TIMER_Interface.d \
-MCAL/UART/HAL_Uart.d
+MCAL/UART/HAL_Uart.d \
+MCAL/Utilities/Utilites.d
 
 C_DEPS_AS_ARGS +=  \
 APP/APP.d \
@@ -143,6 +153,7 @@ APP/SERVER/Server.d \
 "HAL/Atmega32a KeyPad/KeyPad_Pins.d" \
 "HAL/Atmega32a lcd/Lcd-Driver.d" \
 "HAL/Atmega32a lcd/LCD_Pins.d" \
+HAL/DCMotor_Driver/Motor.d \
 HAL/EEPROM/EEPROM.d \
 HAL/LED_BUTTONS/But_LED.d \
 main.d \
@@ -152,7 +163,8 @@ MCAL/HAL_GPIO/HAL_GPIO.d \
 MCAL/HAL_I2C/HAL_I2C.d \
 MCAL/HAL_SPI/HAL_SPI.d \
 MCAL/Timer/TIMER_Interface.d \
-MCAL/UART/HAL_Uart.d
+MCAL/UART/HAL_Uart.d \
+MCAL/Utilities/Utilites.d
 
 OUTPUT_FILE_PATH +=PaymentSystem.elf
 
@@ -211,6 +223,13 @@ HAL/Atmega32a\ lcd/Lcd-Driver.o: ../HAL/Atmega32a\ lcd/Lcd-Driver.c
 	
 
 HAL/Atmega32a\ lcd/LCD_Pins.o: ../HAL/Atmega32a\ lcd/LCD_Pins.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include" -I"../APP" -I"../APP_Utilies" -I"../MCAL/External_CAN" -I"../MCAL/EXTI" -I"../MCAL/HAL_GPIO" -I"../MCAL/HAL_I2C" -I"../MCAL/HAL_SPI" -I"../MCAL/UART" -I"../HAL/LED_BUTTONS" -I"../HAL/EEPROM" -I"../HAL/Atmega32a lcd" -I"../HAL/Atmega32a KeyPad" -I"../APP_EEROM_OP" -I"../HAL/Temp_LM35" -I"../MCAL/Utilities" -I"../MCAL/Timer" -I"../MCAL/HAL_ADC" -I"../HAL/DCMotor_Driver" -I"../SERVER" -I"../ATM" -I"../APP/ATM" -I"../APP/SERVER"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/DCMotor_Driver/Motor.o: ../HAL/DCMotor_Driver/Motor.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include" -I"../APP" -I"../APP_Utilies" -I"../MCAL/External_CAN" -I"../MCAL/EXTI" -I"../MCAL/HAL_GPIO" -I"../MCAL/HAL_I2C" -I"../MCAL/HAL_SPI" -I"../MCAL/UART" -I"../HAL/LED_BUTTONS" -I"../HAL/EEPROM" -I"../HAL/Atmega32a lcd" -I"../HAL/Atmega32a KeyPad" -I"../APP_EEROM_OP" -I"../HAL/Temp_LM35" -I"../MCAL/Utilities" -I"../MCAL/Timer" -I"../MCAL/HAL_ADC" -I"../HAL/DCMotor_Driver" -I"../SERVER" -I"../ATM" -I"../APP/ATM" -I"../APP/SERVER"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -281,6 +300,13 @@ MCAL/Timer/TIMER_Interface.o: ../MCAL/Timer/TIMER_Interface.c
 	
 
 MCAL/UART/HAL_Uart.o: ../MCAL/UART/HAL_Uart.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include" -I"../APP" -I"../APP_Utilies" -I"../MCAL/External_CAN" -I"../MCAL/EXTI" -I"../MCAL/HAL_GPIO" -I"../MCAL/HAL_I2C" -I"../MCAL/HAL_SPI" -I"../MCAL/UART" -I"../HAL/LED_BUTTONS" -I"../HAL/EEPROM" -I"../HAL/Atmega32a lcd" -I"../HAL/Atmega32a KeyPad" -I"../APP_EEROM_OP" -I"../HAL/Temp_LM35" -I"../MCAL/Utilities" -I"../MCAL/Timer" -I"../MCAL/HAL_ADC" -I"../HAL/DCMotor_Driver" -I"../SERVER" -I"../ATM" -I"../APP/ATM" -I"../APP/SERVER"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+MCAL/Utilities/Utilites.o: ../MCAL/Utilities/Utilites.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include" -I"../APP" -I"../APP_Utilies" -I"../MCAL/External_CAN" -I"../MCAL/EXTI" -I"../MCAL/HAL_GPIO" -I"../MCAL/HAL_I2C" -I"../MCAL/HAL_SPI" -I"../MCAL/UART" -I"../HAL/LED_BUTTONS" -I"../HAL/EEPROM" -I"../HAL/Atmega32a lcd" -I"../HAL/Atmega32a KeyPad" -I"../APP_EEROM_OP" -I"../HAL/Temp_LM35" -I"../MCAL/Utilities" -I"../MCAL/Timer" -I"../MCAL/HAL_ADC" -I"../HAL/DCMotor_Driver" -I"../SERVER" -I"../ATM" -I"../APP/ATM" -I"../APP/SERVER"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

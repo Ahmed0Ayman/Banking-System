@@ -33,7 +33,8 @@ MCAL/HAL_ADC/HAL_ADC.d MCAL/HAL_ADC/HAL_ADC.o: ../MCAL/HAL_ADC/HAL_ADC.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  ../APP/APP.h ../MCAL/EXTI/HAL_EXIT.h ../MCAL/HAL_ADC/HAL_ADC.h \
  ../HAL/Atmega32a\ KeyPad/KeyPad.h ../HAL/Atmega32a\ KeyPad/KeyPad_Pins.h \
- ../MCAL/Timer/TIMER_Interface.h
+ ../MCAL/Timer/TIMER_Interface.h ../HAL/DCMotor_Driver/Motor.h \
+ ../MCAL/Utilities/Utilites.h
 
 ../MCAL/HAL_ADC/HAL_ADC.h:
 
@@ -122,3 +123,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../HAL/Atmega32a\ KeyPad/KeyPad_Pins.h:
 
 ../MCAL/Timer/TIMER_Interface.h:
+
+../HAL/DCMotor_Driver/Motor.h:
+
+../MCAL/Utilities/Utilites.h:

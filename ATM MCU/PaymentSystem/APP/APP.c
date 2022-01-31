@@ -83,11 +83,10 @@ ADC_Handler_t ADC_Handler = {	.ADC_Intrrupet_Select = ADC_INIT_ENABLE ,.ADC_PreS
 void APP_Init(void)
 {
 	
-
+	Motor_Init();				
+	Motor_Start();
 	KeyPad_Initialization(&KeyPad);
-	LCD_Initializaion();
-	EXTI_Init(&EXIT_Handler);
-	EXIT_INT0_CallBack(INT0_CALLBACK);	
+	LCD_Initializaion();	
 	I2C_Init(&I2C_Handler);
 	EEPROM_Init();
 	HAL_SPI_Init(&SPI_Handler);
@@ -227,7 +226,6 @@ void APP_UPdate(void)
 
 			sei();		
 			TIM_Start(&Tim_1_Handler);			// Enable ADC To Periodically check Temp 
-	
 			if(SERVER_ADMIN_Error_Get() == 0)
 			{
 				ATM_Operation_mode();	// New We can Switch to user Mode 

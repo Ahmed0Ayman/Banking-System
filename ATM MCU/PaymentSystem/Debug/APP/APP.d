@@ -32,7 +32,8 @@ APP/APP.d APP/APP.o: ../APP/APP.c ../APP/APP.h \
  ../HAL/EEPROM/EEPROM.h ../HAL/EEPROM/EEPROM_Config.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  ../APP/APP.h ../HAL/Atmega32a\ KeyPad/KeyPad.h \
- ../HAL/Atmega32a\ KeyPad/KeyPad_Pins.h ../MCAL/Timer/TIMER_Interface.h
+ ../HAL/Atmega32a\ KeyPad/KeyPad_Pins.h ../MCAL/Timer/TIMER_Interface.h \
+ ../HAL/DCMotor_Driver/Motor.h ../MCAL/Utilities/Utilites.h
 
 ../APP/APP.h:
 
@@ -121,3 +122,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../HAL/Atmega32a\ KeyPad/KeyPad_Pins.h:
 
 ../MCAL/Timer/TIMER_Interface.h:
+
+../HAL/DCMotor_Driver/Motor.h:
+
+../MCAL/Utilities/Utilites.h:

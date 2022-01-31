@@ -23,6 +23,7 @@
 #include "EEPROM.h"
 #include "ATM.h"
 #include "TIMER_Interface.h"
+#include "Motor.h"
 #include <stdlib.h>
 #include <avr/pgmspace.h>
 #include <string.h>

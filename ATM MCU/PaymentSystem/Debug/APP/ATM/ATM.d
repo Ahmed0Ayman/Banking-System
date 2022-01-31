@@ -32,7 +32,8 @@ APP/ATM/ATM.d APP/ATM/ATM.o: ../APP/ATM/ATM.c ../APP/ATM/ATM.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  ../APP/APP.h ../MCAL/EXTI/HAL_EXIT.h ../MCAL/HAL_ADC/HAL_ADC.h \
  ../APP/ATM/ATM.h ../HAL/Atmega32a\ KeyPad/KeyPad.h \
- ../HAL/Atmega32a\ KeyPad/KeyPad_Pins.h ../MCAL/Timer/TIMER_Interface.h
+ ../HAL/Atmega32a\ KeyPad/KeyPad_Pins.h ../MCAL/Timer/TIMER_Interface.h \
+ ../HAL/DCMotor_Driver/Motor.h ../MCAL/Utilities/Utilites.h
 
 ../APP/ATM/ATM.h:
 
@@ -121,3 +122,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../HAL/Atmega32a\ KeyPad/KeyPad_Pins.h:
 
 ../MCAL/Timer/TIMER_Interface.h:
+
+../HAL/DCMotor_Driver/Motor.h:
+
+../MCAL/Utilities/Utilites.h:

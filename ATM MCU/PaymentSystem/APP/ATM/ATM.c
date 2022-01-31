@@ -675,7 +675,9 @@ void ATM_Operation_mode(void)
 					EEPROM_WriteByteS(CardAdd , (uint8_t *)&TempCardData , ATM_CARD_BLOCK_SIZE);
 					LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_Success]));
 					LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_Transaction]));
-					_delay_ms(ATM_DLEAY_IN_S);	
+					Motor_Dir( DIR_LEFT , 70);
+					_delay_ms(1000);
+					Motor_Dir( DIR_LEFT , 0);
 		
 				}
 			
