@@ -12,7 +12,6 @@ int main(void)
 	
     /* Replace with your application code */
 	APP_Init();
-    Motor_Start();
 	sei();
 
 	while (1) 

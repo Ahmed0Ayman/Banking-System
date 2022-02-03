@@ -30,7 +30,7 @@ SERVER_OPER_Status_t SERVER_OPER_Add_CARD(CardData_t * CardData)
 	if(NumOfCards >= ATM_SERVER_TOTAL_CAPCITY)
 	{
 		return SERVER_OPER_FullSpace ; 
-	}else if (SERVER_OPER_Search_CARD(CardData , ATM_SEARCH_BY_PAN) == -1 )
+	}else if (SERVER_OPER_Search_CARD(CardData , ATM_SEARCH_BY_PAN) == 0xffff )
 	{
 		NewAdd = ATM_SERVER_CARD_START_ADD + ( NumOfCards++ * ATM_CARD_BLOCK_SIZE) ;
 		EEPROM_WriteByteS(NewAdd , (uint8_t *)CardData , ATM_CARD_BLOCK_SIZE );											// store card data
@@ -96,7 +96,7 @@ SERVER_OPER_Status_t SERVER_OPER_Remove_CARD(CardData_t * CardData)
 	uint16_t TempIndex = SERVER_OPER_Search_CARD(CardData , ATM_SEARCH_BY_PAN) ;
 	uint16_t ResetIndex = 0xffffu ;
 	uint16_t NumOfCards =0 ; 
-	if(TempIndex != -1)
+	if(TempIndex != 0xffff)
 	{
 		EEPROM_WriteByteS(TempIndex ,(uint8_t *)&ResetIndex , 2 );
 		EEPROM_ReadByteS(0 ,(uint8_t * )&NumOfCards ,2 );
@@ -171,12 +171,8 @@ SERVER_OPER_Status_t SERVER_ADMIN_Set_Temp(uint8_t * MaxTemp)
 
 SERVER_OPER_Status_t SERVER_ADMIN_Get_Temp(uint8_t * MaxTemp)
 {
-//	uint16_t AdminFlag  =0 ;
-//	EEPROM_ReadByteS(SERVER_ADMIN_FLAG_START_ADD ,(uint8_t *)&AdminFlag ,ATM_CARD_ADDRESS_SIZE);
-//	if(AdminFlag == 0)
-	EEPROM_ReadByteS(SERVER_ADMIN_TEMP_START_ADD ,(uint8_t *)MaxTemp ,ADMIN_PASSWARD_LEN);
-	
-//	*MaxTemp = atoi((char *)Temp_MAxTemp);
+
+	EEPROM_ReadByteS(SERVER_ADMIN_TEMP_START_ADD ,(uint8_t *)MaxTemp ,ADMIN_TEMP_LEN);
 	return SERVER_OPER_OK ;
 }
 

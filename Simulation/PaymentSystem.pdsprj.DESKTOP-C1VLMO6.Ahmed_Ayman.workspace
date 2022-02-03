@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000200000003000000ffffffffffffffffffffffffffffffffcd0900003f000000f90f000037040000</PLACEMENT>
+  <PLACEMENT>2c00000002000000030000000083ffff0083ffffffffffffffffffffcd0900003f000000f90f000037040000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
   <PWI>
-   <POPUP w="1344" x="2168" flags="00000002" y="247" h="795" pid="0" iid="-1">
+   <POPUP w="1344" x="1972" flags="00000003" y="185" h="397" pid="0" iid="-1">
     <PROPERTIES>
-     <ITEM name="Message Column Width">1084</ITEM>
+     <ITEM name="Message Column Width">1205</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
      <ITEM name="Source Column Width">100</ITEM>
      <ITEM name="Time Column Width">120</ITEM>
@@ -54,7 +54,7 @@
      <ITEM name="VSplitter1Pos">298</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="1190" x="1928" flags="00000023" y="94" h="492" pid="0" iid="1">
+   <POPUP w="818" x="1942" flags="00008023" y="82" h="657" pid="0" iid="1">
     <PROPERTIES>
      <ITEM name="AutoEcho">1</ITEM>
      <ITEM name="HexMode">0</ITEM>
@@ -186,33 +186,33 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="24" x="3117" flags="0000000b" y="854" h="63" pid="101" iid="82">
+   <POPUP w="24" x="2100" flags="0000000b" y="123" h="63" pid="101" iid="82">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>
      <ITEM name="DispFormat">2</ITEM>
      <ITEM name="ShowChanges">Yes</ITEM>
      <ITEM name="ShowToolTips">Yes</ITEM>
-     <ITEM name="TopLineAddress">00006A98</ITEM>
+     <ITEM name="TopLineAddress">0000FA20</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="1387" x="34" flags="0000002b" y="181" h="676" pid="1" iid="4">
+   <POPUP w="1387" x="2429" flags="0000002b" y="366" h="676" pid="1" iid="4">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"ATM_Lock_Fun",4E88,0070,C482,0BB9,1
+     <ITEM name="Breakpoint 0">"App_Get_Command",11AC,003C,2AC9,E127,1
 </ITEM>
-     <ITEM name="Breakpoint 1">"Motor_Dir",5894,0016,521D,3453,1
+     <ITEM name="Breakpoint 1">"App_Get_Command",11B2,0042,AFFA,E127,1
 </ITEM>
-     <ITEM name="Breakpoint 10">"APP_Init",36D6,0090,0DAC,444B,1
+     <ITEM name="Breakpoint 10">"Motor_Dir",2A06,0016,521D,3453,1
 </ITEM>
-     <ITEM name="Breakpoint 11">"ATM_Buttons_GPIO_Init",3600,0004,35FE,444B,1
+     <ITEM name="Breakpoint 11">"Motor_Dir",2A0A,001A,EC4A,3453,1
 </ITEM>
-     <ITEM name="Breakpoint 12">"__vector_9",36F6,0012,5BFE,444B,1
+     <ITEM name="Breakpoint 12">"Motor_Dir",2A9C,00AC,E5B5,3453,1
 </ITEM>
-     <ITEM name="Breakpoint 13">"ATM_Operation_mode",4BB4,053E,B79A,78B4,1
+     <ITEM name="Breakpoint 13">"Motor_Dir",2ACC,00DC,BE92,3453,1
 </ITEM>
-     <ITEM name="Breakpoint 14">"ATM_Operation_mode",4824,01AE,F55C,78B4,1
+     <ITEM name="Breakpoint 14">"main",2DD4,0000,77E7,873E,1
 </ITEM>
-     <ITEM name="Breakpoint 15">"ATM_Operation_mode",482C,01B6,F5D4,78B4,1
+     <ITEM name="Breakpoint 15">"main",2DD8,0004,0E9C,873E,1
 </ITEM>
      <ITEM name="Breakpoint 16">"ATM_Operation_mode",4B48,04D2,AE5A,78B4,1
 </ITEM>
@@ -222,7 +222,7 @@
 </ITEM>
      <ITEM name="Breakpoint 19">"SERVER_OPER_Search_CARD",4F4A,008E,2D9E,A0BF,1
 </ITEM>
-     <ITEM name="Breakpoint 2">"Motor_Dir",592A,00AC,E5B5,3453,1
+     <ITEM name="Breakpoint 2">"App_Get_Command",11BA,004A,13A4,E127,1
 </ITEM>
      <ITEM name="Breakpoint 20">"SERVER_OPER_Search_CARD",4F54,0098,13F5,A0BF,1
 </ITEM>
@@ -232,19 +232,19 @@
 </ITEM>
      <ITEM name="Breakpoint 23">"EEPROM_ReadByteS",57AE,0094,0248,4963,1
 </ITEM>
-     <ITEM name="Breakpoint 3">"APP_Init",3694,004E,942A,444B,-1
+     <ITEM name="Breakpoint 3">"App_Get_Command",11C4,0054,ECB1,E127,1
 </ITEM>
-     <ITEM name="Breakpoint 4">"APP_Init",369C,0056,568D,444B,-1
+     <ITEM name="Breakpoint 4">"App_Get_Command",11C8,0058,CD8A,E127,1
 </ITEM>
-     <ITEM name="Breakpoint 5">"APP_Init",369E,0058,AF77,444B,-1
+     <ITEM name="Breakpoint 5">"App_Get_Command",11E2,0072,238C,E127,1
 </ITEM>
-     <ITEM name="Breakpoint 6">"APP_Init",36A4,005E,808D,444B,-1
+     <ITEM name="Breakpoint 6">"App_Get_Command",11EA,007A,D06B,E127,1
 </ITEM>
-     <ITEM name="Breakpoint 7">"APP_Init",36A6,0060,552B,444B,1
+     <ITEM name="Breakpoint 7">"ATM_Programming_mode",19E6,0006,25FB,0BB9,1
 </ITEM>
-     <ITEM name="Breakpoint 8">"APP_Init",36C6,0080,0032,444B,-1
+     <ITEM name="Breakpoint 8">"ATM_Lock_Fun",1FFE,0030,C80F,0BB9,1
 </ITEM>
-     <ITEM name="Breakpoint 9">"APP_Init",36CE,0088,896F,444B,1
+     <ITEM name="Breakpoint 9">"KeyPad_GetPressedKey",24F4,001A,6A34,C6A2,1
 </ITEM>
      <ITEM name="CaseSensitive">No</ITEM>
      <ITEM name="DISPADDRS">Yes</ITEM>
@@ -252,10 +252,10 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">3</ITEM>
+     <ITEM name="nBreakpoints">16</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="506" x="808" flags="0000000b" y="88" h="854" pid="2" iid="4">
+   <POPUP w="506" x="1414" flags="0000000b" y="188" h="854" pid="2" iid="4">
     <PROPERTIES>
      <ITEM name="Address Column Width">145</ITEM>
      <ITEM name="AutoResize">No</ITEM>
@@ -272,7 +272,7 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="738" x="3102" flags="00008023" y="531" h="511" pid="0" iid="122">
+   <POPUP w="738" x="3102" flags="00000023" y="272" h="511" pid="0" iid="122">
     <PROPERTIES>
      <ITEM name="AutoEcho">1</ITEM>
      <ITEM name="HexMode">0</ITEM>
@@ -281,7 +281,7 @@
    <POPUP w="1384" x="128" flags="00000000" y="159" h="883" pid="0" iid="119">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="16" x="464" flags="0000000b" y="244" h="32" pid="101" iid="133">
+   <POPUP w="16" x="705" flags="0000000b" y="806" h="32" pid="101" iid="133">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>

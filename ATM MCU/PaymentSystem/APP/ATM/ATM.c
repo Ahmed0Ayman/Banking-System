@@ -25,18 +25,16 @@
 #define		LCD_Print_enter_Programing				13
 #define		LCD_Print_Mode							14
 #define		LCD_Print_Programing_Mode				15
-#define     LCD_Print_CARD							16
-#define     LCD_Print_NOT_READY						17
-#define     LCD_Print_ENTER_THANK					18
-#define     LCD_Print_YOU							19
-#define     LCD_Print_Success						20
+#define     LCD_Print_NOT_READY						16
+#define     LCD_Print_THANK							17
+#define     LCD_Print_YOU							18
+#define     LCD_Print_Success						19
 
 
 extern uint16_t Max_Temp ; 
 
 
 static uint8_t ATM_Get_UserCommand(void);
- uint8_t ATM_Terminal_GetString(uint8_t * RxBuffer , uint8_t BufferSize );
 static void ATM_Add_CardData(void);
 static void ATM_Remove_Card(void);
 static SERVER_OPER_Status_t ATM_Search_Card_WithPAN(void);
@@ -45,11 +43,12 @@ static SERVER_OPER_Status_t ATM_Search_Card_WithPAN(void);
 static void ATM_Collect_CardData(CardData_t * CardData);
 
 
-uint8_t   const LCD_StrF[][20] PROGMEM = 
+char const LCD_StrF[][20] PROGMEM = 
 {
 	"WELCOME OPERATE",
 	"MODE",
 	"PLEASE ENTER ",
+	"CARD",
 	"ENTER THE",
 	"TRANSAC AMOUNT ",
 	"TRANSACTION  : ",
@@ -62,7 +61,6 @@ uint8_t   const LCD_StrF[][20] PROGMEM =
 	"enter Program",
 	"Mode",
 	"Program ModE",
-	"CARD",
 	"NOT READY",
 	"THANK",
 	"YOU",
@@ -71,7 +69,7 @@ uint8_t   const LCD_StrF[][20] PROGMEM =
  
 
 
-uint8_t * Print_F(uint8_t const * const Str_F)
+uint8_t * ReadStr_F(char const * const Str_F)
 {
 	if (Str_F == NULL)
 	{
@@ -81,6 +79,8 @@ uint8_t * Print_F(uint8_t const * const Str_F)
 	strcpy_P((char *)Buffer_Ram , (char*)Str_F);
 	return Buffer_Ram ; 
 }
+
+
 
 
 uint8_t ATM_Terminal_GetString(uint8_t * RxBuffer , uint8_t BufferSize )
@@ -99,20 +99,20 @@ uint8_t ATM_Terminal_GetString(uint8_t * RxBuffer , uint8_t BufferSize )
 uint8_t ATM_Get_UserCommand(void)
 {
 	uint8_t command = 0; 	
-	printf_P(PSTR("*******************************************************************************************\n"	));
-	printf_P(PSTR("*********************** Please Choose one of the following Commands ***********************\n" ));
-	printf_P(PSTR("*******************************************************************************************\n" ));
-	printf_P(PSTR("************************ 1- Add Card	 *****************************************************\n" ));
-	printf_P(PSTR("************************ 2- Remove Card   *************************************************\n" ));
-	printf_P(PSTR("************************ 3- Search For Card With PAN **************************************\n" ));
-	printf_P(PSTR("************************ 4- Search With Card Holder Name **********************************\n" ));
-	printf_P(PSTR("************************ 5- Total NUM of Current CARDs ************************************\n" ));
-	printf_P(PSTR("************************ 6- Reset Data Base ***********************************************\n" ));
-	printf_P(PSTR("************************ 7- Admin Modify Data *********************************************\n" ));
-	printf_P(PSTR("************************ 8- Exit Programming mode *****************************************\n" ));
-	printf_P(PSTR("*******************************************************************************************\n" ));
-	printf_P(PSTR("************************************** END OF SELECTION !!!********************************\n" ));
-	printf_P(PSTR("*******************************************************************************************\n"	));
+	printf_P(PSTR("**************************************************************\n"));
+	printf_P(PSTR("***** Please Choose one of the following Commands ************\n"));
+	printf_P(PSTR("**************************************************************\n"));
+	printf_P(PSTR("************* 1- Add Card	 ********************************\n"));
+	printf_P(PSTR("************* 2- Remove Card   *******************************\n"));
+	printf_P(PSTR("************* 3- Search For Card With PAN ********************\n"));
+	printf_P(PSTR("************* 4- Search With Card Holder Name ****************\n"));
+	printf_P(PSTR("************* 5- Total NUM of Current CARDs ******************\n"));
+	printf_P(PSTR("************* 6- Reset Data Base *****************************\n"));
+	printf_P(PSTR("************* 7- Admin Modify Data ***************************\n"));
+	printf_P(PSTR("************* 8- Exit Programming mode ***********************\n"));
+	printf_P(PSTR("**************************************************************\n"));
+	printf_P(PSTR("******************* END OF SELECTION !!!**********************\n"));
+	printf_P(PSTR("**************************************************************\n"));
 	printf_P(PSTR(" \n" ));	
 
 	HAL_UART_RECEIVE(&UART_Handler , &command , 0x01) ;
@@ -125,14 +125,54 @@ uint8_t ATM_Get_UserCommand(void)
 
 void ATM_Add_CardData(void)
 {
-		uint8_t  flag = 0 ;
-		CardData_t TempCard = {0};						
+		uint8_t  flag = 0 , u8_Index_str =0 , u8_Index_Num =0 ;
+		CardData_t TempCard = {0};
+									
 			String_F_PrintLine(PSTR("Please enter Card Holder Name  "));
 		ATM_Terminal_GetString(TempCard.CardName , CARD_NAME_LEN +1);
+		do 
+		{
+			u8_Index_str =0; u8_Index_Num =0;
 			String_F_PrintLine(PSTR("Please enter Card PAN  :  "));
-		ATM_Terminal_GetString(TempCard.CardPAN , CARD_PAN_LEN+1);
-			String_F_PrintLine(PSTR("Please enter Card PIN :  "));
-		ATM_Terminal_GetString(TempCard.CardPIN , CARD_PIN_LEN+1);
+			ATM_Terminal_GetString(TempCard.CardPAN , CARD_PAN_LEN+1);	
+			while(TempCard.CardPAN[u8_Index_str] != '\0')
+			{
+				if((TempCard.CardPAN[u8_Index_str] >= 0x30 ) && ( TempCard.CardPAN[u8_Index_str] <= 0x39))
+				{
+					u8_Index_Num++ ;
+				}
+				
+				u8_Index_str++;
+				
+			}
+			if(u8_Index_Num != 9 )
+			{
+				String_F_PrintLine(PSTR("!!!!!!Please enter 9 Numbers only !!!!!!!"));
+			}
+			
+		} while (u8_Index_Num != 9 );
+		do
+		{
+			u8_Index_str =0; u8_Index_Num =0;
+			String_F_PrintLine(PSTR("Please enter Card PIN  :  "));
+			ATM_Terminal_GetString(TempCard.CardPIN , CARD_PIN_LEN);
+			while(TempCard.CardPIN[u8_Index_str] != '\0')
+			{
+				if((TempCard.CardPIN[u8_Index_str] >= 0x30 ) && ( TempCard.CardPIN[u8_Index_str] <= 0x39))
+				{
+					u8_Index_Num++ ;
+				}
+				
+				u8_Index_str++;
+				
+			}
+			if(u8_Index_Num != 4 )
+			{
+				String_F_PrintLine(PSTR("Please enter 4 Numbers only "));
+			}
+			
+		} while (u8_Index_Num != 4 );
+
 			String_F_PrintLine(PSTR("Please enter Card Total Balance "));
 		ATM_Terminal_GetString(TempCard.CardBalance , CARD_BALANCE_LEN+1);	
 		/********************************************************
@@ -179,7 +219,7 @@ SERVER_OPER_Status_t ATM_Search_Card_WithPAN(void)
 		String_F_PrintLine(PSTR("Please enter Card PAN"));
 		ATM_Terminal_GetString(TempCard.CardPAN , CARD_PAN_LEN+1);
 	// access SERVER here and return result
-	if (SERVER_OPER_Search_CARD(&TempCard , ATM_SEARCH_BY_PAN)  != -1 ) // if data exist
+	if (SERVER_OPER_Search_CARD(&TempCard , ATM_SEARCH_BY_PAN)  != 0xffff ) // if data exist
 	{
 		String_F_PrintLine(PSTR("This card Is Exist"));		
 		return  SERVER_OPER_Exist ;
@@ -196,7 +236,7 @@ void ATM_Search_Card_ByName(void)
 	String_F_PrintLine(PSTR("Please enter Card Name:"));
 	ATM_Terminal_GetString(TempCard.CardName , CARD_NAME_LEN );
 	// access SERVER here and return result
-	if (SERVER_OPER_Search_CARD(&TempCard , ATM_SEARCH_BY_NAME)  != -1 ) // if card data is exist
+	if (SERVER_OPER_Search_CARD(&TempCard , ATM_SEARCH_BY_NAME)  != 0xffff ) // if card data is exist
 	{
 		String_F_PrintLine(PSTR("This card  Is Exist"));
 	}else  // if data dose is not exist
@@ -216,11 +256,11 @@ void ATM_Admin_Modifying_Data(void)
 	{
 
 		String_F_PrintLine(PSTR("Please Choose one of the following Commands "));
-		printf_P(PSTR("************************ 1- Set Admin Password and Name ***********************************\n" ));
-		printf_P(PSTR("************************ 2- Set Admin Maximum Temperature *********************************\n" ));
-		printf_P(PSTR("************************ 3- Clear Error Flag **********************************************\n" ));
-		printf_P(PSTR("************************ 4- Set Max Daily Amount ******************************************\n" ));
-		printf_P(PSTR("************************ 5- Exit **********************************************************\n" ));
+		printf_P(PSTR("***************** 1- Set Admin Password and Name *************\n" ));
+		printf_P(PSTR("***************** 2- Set Admin Maximum Temperature ***********\n" ));
+		printf_P(PSTR("***************** 3- Clear Error Flag ************************\n" ));
+		printf_P(PSTR("***************** 4- Set Max Daily Amount ********************\n" ));
+		printf_P(PSTR("***************** 5- Exit ************************************\n" ));
 		String_F_PrintLine(PSTR("END OF SELECTION !!!"));
 		HAL_UART_RECEIVE(&UART_Handler , &command , 0x01) ;
 		printf_P(PSTR(" \n" ));
@@ -299,15 +339,15 @@ void ATM_Programming_mode(void)
 	uint8_t command = 0; 
 	
 	
-	LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_enter_Programing] ));	
-	LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_Mode] ));
+	LCD_Send_String_WithLoc(1,1,ReadStr_F(LCD_StrF[LCD_Print_enter_Programing] ));	
+	LCD_Send_String_WithLoc(2,1,ReadStr_F(LCD_StrF[LCD_Print_Mode] ));
 	String_F_PrintTwoLines(LCD_StrF[LCD_Print_enter_Programing] , LCD_StrF[LCD_Print_Mode]);
 	
 	
 	
 	_delay_ms(ATM_DLEAY_IN_S );
 	LCD_Send_Command(LCD_COMMANED_CLEAR_LCD);
-	LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_Programing_Mode]));
+	LCD_Send_String_WithLoc(1,1,ReadStr_F(LCD_StrF[LCD_Print_Programing_Mode]));
 	String_F_PrintTwoLines(LCD_StrF[LCD_COMMANED_CLEAR_LCD] , LCD_StrF[LCD_Print_Programing_Mode]);
 
 	_delay_ms(ATM_DLEAY_IN_S);
@@ -412,21 +452,21 @@ void ATM_Operation_mode(void)
 {	
 	uint8_t index =0 ;
 	uint8_t	CommandFlag  =0 ;	
-	LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_WELCOME_OPERATE]));
-	LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_MODE]));
+	LCD_Send_String_WithLoc(1,1,ReadStr_F(LCD_StrF[LCD_Print_WELCOME_OPERATE]));
+	LCD_Send_String_WithLoc(2,1,ReadStr_F(LCD_StrF[LCD_Print_MODE]));
 	String_F_PrintTwoLines(LCD_StrF[LCD_Print_WELCOME_OPERATE] , LCD_StrF[LCD_Print_MODE]);
 
 	_delay_ms(ATM_DLEAY_IN_S);
 
-
+	ExitFlag =0 ;
 	while(!ExitFlag)
 	{
 		index = 0 , KeyPad_Key = 0;
 		memset(TempBlance , 0 , ADMIN_MAX_DAILY_LEN);
 
 		LCD_Send_Command(LCD_COMMANED_CLEAR_LCD) ;
-		LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_PLEASE_ENTER]));
-		LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_CARD]));
+		LCD_Send_String_WithLoc(1,1,ReadStr_F(LCD_StrF[LCD_Print_PLEASE_ENTER]));
+		LCD_Send_String_WithLoc(2,1,ReadStr_F(LCD_StrF[LCD_Print_CARD]));
 
 
 
@@ -437,7 +477,7 @@ void ATM_Operation_mode(void)
 			 ATM_Collect_CardData(&CardData);
 			CardAdd = SERVER_OPER_Search_CARD(&CardData , ATM_SEARCH_BY_PAN) ;
 		
-		if ( CardAdd != -1 ) // if data exist
+		if ( CardAdd != 0xffff ) // if data exist
 		{
 			EEPROM_ReadByteS(CardAdd , (uint8_t *)&TempCardData , ATM_CARD_BLOCK_SIZE);	
 			CardBalance = atoi((char *)TempCardData.CardBalance) ;
@@ -456,8 +496,8 @@ void ATM_Operation_mode(void)
 				
 				
 				LCD_Send_Command( LCD_COMMANED_CLEAR_LCD );
-				LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_ENTER_THE]));
-				LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_TRANSAC_AMOUNT]));
+				LCD_Send_String_WithLoc(1,1,ReadStr_F(LCD_StrF[LCD_Print_ENTER_THE]));
+				LCD_Send_String_WithLoc(2,1,ReadStr_F(LCD_StrF[LCD_Print_TRANSAC_AMOUNT]));
 				String_F_PrintTwoLines(LCD_StrF[LCD_Print_ENTER_THE] , LCD_StrF[LCD_Print_TRANSAC_AMOUNT]);
 				_delay_ms(ATM_DLEAY_IN_S);
 				
@@ -465,7 +505,7 @@ void ATM_Operation_mode(void)
 				
 				String_F_PrintTwoLines(LCD_StrF[LCD_Print_ENTER_THE] , LCD_StrF[LCD_Print_TRANSAC_AMOUNT]);
 				LCD_Send_Command( LCD_COMMANED_CLEAR_LCD );
-				LCD_Send_String_WithLoc(1,1,(uint8_t *) Print_F(LCD_StrF[LCD_Print_TRANSACTION]));
+				LCD_Send_String_WithLoc(1,1,(uint8_t *) ReadStr_F(LCD_StrF[LCD_Print_TRANSACTION]));
 				LCD_Goto_Location(2,1);
 				String_F_PrintLine(LCD_StrF[LCD_Print_TRANSACTION] );
 				
@@ -501,8 +541,8 @@ void ATM_Operation_mode(void)
 				if((UserTransAmount > MaxDailyWithDraw) || (UserTransAmount > CardBalance))
 				{
 					LCD_Send_Command(LCD_COMMANED_CLEAR_LCD);
-					LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_Wrong]));
-					LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_Transaction]));
+					LCD_Send_String_WithLoc(1,1,ReadStr_F(LCD_StrF[LCD_Print_Wrong]));
+					LCD_Send_String_WithLoc(2,1,ReadStr_F(LCD_StrF[LCD_Print_Transaction]));
 					String_F_PrintTwoLines(LCD_StrF[LCD_Print_Wrong] , LCD_StrF[LCD_Print_Transaction] );
 
 					_delay_ms(ATM_DLEAY_IN_S); 
@@ -512,10 +552,11 @@ void ATM_Operation_mode(void)
 					itoa(CardBalance , (char *)TempCardData.CardBalance , 10 ) ;
 					LCD_Send_Command(LCD_COMMANED_CLEAR_LCD);
 					LCD_Send_Integer_CurrLoc(CardBalance , 7);
-					printf("Current  balance is : %i \n" , CardBalance);
+					printf("Current  balance is : %lu \n" , CardBalance);
 					EEPROM_WriteByteS(CardAdd , (uint8_t *)&TempCardData , ATM_CARD_BLOCK_SIZE);
-					LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_Success]));
-					LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_Transaction]));
+					LCD_Send_String_WithLoc(1,1,(uint8_t *)"Current");
+					LCD_Send_String_WithLoc(2,1,(uint8_t *)"Balance is ");
+					LCD_Send_Integer_CurrLoc(CardBalance , 5 );
 					Motor_Dir( DIR_LEFT , 70);
 					_delay_ms(1000);
 					Motor_Dir( DIR_LEFT , 0);
@@ -528,10 +569,8 @@ void ATM_Operation_mode(void)
 			;
 		}
 		String_F_PrintLine(PSTR("Please Choose one of the following Commands "));
-		printf_P(PSTR("************************ 1- Try another Transaction  **************************************\n" ));
-		printf_P(PSTR("************************ 2- Exit **********************************************************\n" ));
+		String_F_PrintTwoLines(PSTR("1- Try another Transaction   ") , PSTR("2- Exit  "));
 		String_F_PrintLine(PSTR("END OF SELECTION !!!"));
-		printf_P(PSTR("\n" ));
 		LCD_Send_Command(LCD_COMMANED_CLEAR_LCD);
 		LCD_Send_String_WithLoc(1,1,(uint8_t *)"Select Command");
 		LCD_Send_String_WithLoc(2,1,(uint8_t *)"1.Try   2.Exit");
@@ -549,7 +588,7 @@ void ATM_Operation_mode(void)
 			
 			}
 			LCD_Send_Command(LCD_COMMANED_CLEAR_LCD);
-			LCD_Send_String_WithLoc(1,1,(uint8_t *)"You Pressed");
+			LCD_Send_String_WithLoc(1,1,(uint8_t *)"You Entered = ");
 			LCD_Send_Character_WithLoc(2,6,KeyPad_Key);
 			switch(KeyPad_Key)
 			{
@@ -576,8 +615,8 @@ void ATM_Operation_mode(void)
 		_delay_ms(2000);
 		String_F_PrintLine(PSTR("Thank You   "));
 		LCD_Send_Command( LCD_COMMANED_CLEAR_LCD );
-		LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_ENTER_THANK]));
-		LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_YOU]));
+		LCD_Send_String_WithLoc(1,1,ReadStr_F(LCD_StrF[LCD_Print_THANK]));
+		LCD_Send_String_WithLoc(2,1,ReadStr_F(LCD_StrF[LCD_Print_YOU]));
 		while(1);
 }
 
@@ -589,33 +628,18 @@ void ATM_Collect_CardData(CardData_t * CardData)
 	{
 		return ;
 	}
+	LCD_Send_Command(LCD_COMMANED_CLEAR_LCD);	
 	while(!Flag)
 	{
 		
 		HAL_GPIO_WRITEPIN(GPIOD , GPIO_PIN_3, GPIO_PIN_SET);
 		HAL_SPI_Recieve(&SPI_Handler ,(uint8_t*) CardData , 29) ;
+		
 		if(strcmp((char * )CardData , "NOT READY" ) == 0 )
 		{
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			String_F_PrintTwoLines(PSTR("CARD") ,PSTR("NOT READY")  );
-			LCD_Send_Command(LCD_COMMANED_CLEAR_LCD);	
-			String_F_PrintTwoLines(LCD_StrF[LCD_Print_CARD] , LCD_StrF[LCD_Print_NOT_READY] );
+			LCD_Send_String_WithLoc(1,1,(uint8_t *)ReadStr_F(LCD_StrF[LCD_Print_CARD]));
+			LCD_Send_String_WithLoc(2,1,(uint8_t *)ReadStr_F(LCD_StrF[LCD_Print_NOT_READY]));				
 
 		}
 		else
@@ -632,8 +656,8 @@ void ATM_Collect_CardData(CardData_t * CardData)
 void ATM_Lock_Fun(void)
 {
 	  
-	LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_ERROR_Temp]));
-	LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_CALL_XXXXXX]));
+	LCD_Send_String_WithLoc(1,1,ReadStr_F(LCD_StrF[LCD_Print_ERROR_Temp]));
+	LCD_Send_String_WithLoc(2,1,ReadStr_F(LCD_StrF[LCD_Print_CALL_XXXXXX]));
 	String_F_PrintTwoLines(PSTR("LOCKED") , PSTR("Please Call XXXX")  );
 	while(1);
 }

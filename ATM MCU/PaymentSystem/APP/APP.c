@@ -10,12 +10,12 @@
 
 
 
-#define		SELECT_OPERATION_MODE_BUTTON			0x01u 
+#define		SELECT_OPERATION_MODE_BUTTON			0x00u 
 #define     LCD_Print_Dragons						11
 #define     LCD_Print_ATM_System					12
 
 uint16_t Max_Temp = 0 ;
-extern uint8_t   const LCD_StrF[11][20] ;
+extern char  const LCD_StrF[11][20] ;
 
 
 
@@ -78,13 +78,13 @@ ADC_Handler_t ADC_Handler = {	.ADC_Intrrupet_Select = ADC_INIT_ENABLE ,.ADC_PreS
 								.ADC_TRIG_SOURCE =ADC_TRIG_TIM1_OV ,.ADC_Vref_Select = ADC_Vref_AVCC,
 								.ADC_Adjust_Select = ADC_Adjust_Right };
 								 
-	uint8_t strMax_Temp[ADMIN_TEMP_LEN] ; 								 
+							 
 								 
 void APP_Init(void)
 {
-	
+
+	uint8_t strMax_Temp[ADMIN_TEMP_LEN] ; 		
 	Motor_Init();				
-	Motor_Start();
 	KeyPad_Initialization(&KeyPad);
 	LCD_Initializaion();	
 	I2C_Init(&I2C_Handler);
@@ -92,15 +92,15 @@ void APP_Init(void)
 	HAL_SPI_Init(&SPI_Handler);
 	HAL_UART_Init(&UART_Handler);
 	ATM_Buttons_GPIO_Init();	
+
 	TIM_NormalModeInit(&Tim_1_Handler);
-	TIM_CallBack_FuctionSet(TIM_1_IT_OVER , Tim_1_CallBAck);
 	ADC_Init(&ADC_Handler);
 	cli();
 	_TIM_IT_EN( TIM_1_IT_OVER);
-	ADC_Get_Value_IT(&ADC_Handler,ADC_CH_0);
+	ADC_Get_Value_IT(ADC_CH_0);
 	SERVER_ADMIN_Get_Temp(strMax_Temp);
 	Max_Temp = atoi((char *)strMax_Temp);
-	if (Max_Temp == -1)
+	if (Max_Temp == 0xffff)
 	{
 		Max_Temp = 50 ;		// default value 
 	}
@@ -168,8 +168,8 @@ uint8_t App_Get_Command(void)
 void APP_UPdate(void)
 {
 	uint8_t Flag = 0 ;
-	LCD_Send_String_WithLoc(1,1,Print_F(LCD_StrF[LCD_Print_Dragons]));
-	LCD_Send_String_WithLoc(2,1,Print_F(LCD_StrF[LCD_Print_ATM_System]));
+	LCD_Send_String_WithLoc(1,1,ReadStr_F(LCD_StrF[LCD_Print_Dragons]));
+	LCD_Send_String_WithLoc(2,1,ReadStr_F(LCD_StrF[LCD_Print_ATM_System]));
 	String_F_PrintTwoLines(LCD_StrF[LCD_Print_Dragons] , LCD_StrF[LCD_Print_ATM_System] );
 	_delay_ms(ATM_DLEAY_IN_S);
 	LCD_Send_Command(LCD_COMMANED_CLEAR_LCD);
@@ -221,20 +221,9 @@ void ATM_Buttons_GPIO_Init(void)
 
 
 
-void INT0_CALLBACK(void)
-{
-	
-	
-	
-	
-	
-}
-
-
-
-
 
 int usart_putchar_printf(char var, FILE *stream) {
+	(void)stream ;
 	uint8_t TempVar = var , Tempr = '\r';
     if (var == '\n') HAL_UART_TRANSMIT(&UART_Handler , &Tempr ,1);
 	HAL_UART_TRANSMIT(&UART_Handler , &TempVar ,1);
@@ -244,15 +233,6 @@ int usart_putchar_printf(char var, FILE *stream) {
 
 
 
-
-
-void Tim_1_CallBAck(void)
-{
-	
-	
-	
-	
-}
 
 ISR(TIMER1_OVF_vect)
 {

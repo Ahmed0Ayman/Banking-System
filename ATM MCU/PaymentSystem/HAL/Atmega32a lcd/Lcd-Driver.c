@@ -258,7 +258,7 @@ LCD_Status_t LCD_Send_Float_Withloc(uint8_t y, uint8_t x ,  float number )
 LCD_Status_t LCD_Send_Integer_CurrLoc(uint16_t IntegerToDisplay, uint8_t NumberOfDigits)
 {
 		uint8_t StringToDisplay[NumberOfDigits];   /* create array with required size */ 
-		itoa(IntegerToDisplay,StringToDisplay,10); /* convert from int num. to char num. */
+		itoa(IntegerToDisplay,(char *)StringToDisplay,10); /* convert from int num. to char num. */
 		LCD_Send_String_CurrLoc(StringToDisplay);  /* print char array on the screen */
 	
 	
@@ -279,7 +279,7 @@ LCD_Status_t LCD_Send_Integer_CurrLoc(uint16_t IntegerToDisplay, uint8_t NumberO
 LCD_Status_t LCD_Send_Integer_WithLoc(uint8_t y, uint8_t x, uint16_t IntegerToDisplay, uint8_t NumberOfDigits)
 {
 	uint8_t StringToDisplay[NumberOfDigits];   /* create array with required size */
-	itoa(IntegerToDisplay,StringToDisplay,10); /* convert from int num. to char num. */
+	itoa(IntegerToDisplay,(char *)StringToDisplay,10); /* convert from int num. to char num. */
 	for (uint16_t i=0;i<NumberOfDigits;i++)
 		LCD_Send_Character_CurrLoc(' ');
 		

@@ -30,7 +30,7 @@ static TIMInit_t  Tim_PWM_Handler ={ .Instance = TIM1 ,.COMPConfig.TIM16Bit.Comp
 
 
 #elif TIM2_IN_USE
-static TIMInit_t  Tim_PWM_Handler ={ .Instance = TIM2 ,.COMPConfig.TIM8Bit.CompAction = TIM_COMP_PIN_OUT_Normal  , .TIM_Interrupt = TIM_2_IT_COMP ,.TimPreScaler = TIM_2_Prescaler_1024 , .COMPConfig.TIM8Bit.CompValue = 50 };
+static TIMInit_t  Tim_PWM_Handler ={ .Instance = TIM2 ,.COMPConfig.TIM8Bit.CompAction = TIM_COMP_PIN_OUT_Normal  , .TIM_Interrupt = TIM_2_IT_COMP ,.TimPreScaler = TIM_2_Prescaler_1024 , .COMPConfig.TIM8Bit.CompValue = 0 };
 
 #elif TIM0_IN_USE
 static TIMInit_t  Tim_PWM_Handler ={ .Instance = TIM0 ,.COMPConfig.TIM8Bit.CompAction = TIM_COMP_PIN_OUT_Normal   , .TIM_Interrupt = TIM_0_IT_COMP ,.TimPreScaler = TIM_0_Prescaler_256  , .COMPConfig.TIM8Bit.CompValue = 0  };
@@ -44,7 +44,10 @@ MOTOR_STATUS_t Motor_Init(void)
 		{
 			return MOTOR_PWM_ERROR ; 
 		}
-
+		if (Software_PWM_Start (&Tim_PWM_Handler) != UTIL_OK)
+		{
+			return MOTOR_PWM_ERROR ;
+		}
 		
 		for (uint8_t iter = 0 ; iter < Total_MOTORS ; iter++)
 		{
@@ -58,16 +61,7 @@ MOTOR_STATUS_t Motor_Init(void)
 }
 
 
-MOTOR_STATUS_t Motor_Start(void)
-{
-	
-		if (Software_PWM_Start (&Tim_PWM_Handler) != UTIL_OK)
-		{
-			return MOTOR_PWM_ERROR ;
-		}
-	
-	
-}
+
 
 MOTOR_STATUS_t Motor_Dir(Motor_DIR_t DIR , uint8_t Speed )
 {

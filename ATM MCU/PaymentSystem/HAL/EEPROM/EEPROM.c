@@ -23,7 +23,7 @@ EEPROM_Status_t EEPROM_Init(void)
 
 
 
-EEPROM_Status_t EEPROM_ReadPage(uint8_t PageNum , uint8_t * RXBuffer )
+EEPROM_Status_t EEPROM_ReadPage(uint16_t PageNum , uint8_t * RXBuffer )
 {
 	if ((PageNum > EEPROM_NUMBER_OF_PAGES)||(RXBuffer == NULL))
 	{
@@ -40,7 +40,7 @@ EEPROM_Status_t EEPROM_ReadPage(uint8_t PageNum , uint8_t * RXBuffer )
 }
 
 
-EEPROM_Status_t EEPROM_WritePage(uint8_t PageNum , uint8_t * TXBuffer )
+EEPROM_Status_t EEPROM_WritePage(uint16_t PageNum , uint8_t * TXBuffer )
 {
 	if ((PageNum > EEPROM_NUMBER_OF_PAGES)||(TXBuffer == NULL))
 	{

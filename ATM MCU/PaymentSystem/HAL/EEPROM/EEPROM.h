@@ -24,10 +24,10 @@ typedef enum {EEPROM_OK , EEPROM_PARAM_ERROR , EEPROM_ERROR  }EEPROM_Status_t;
 
 EEPROM_Status_t EEPROM_Init(void);
 
-EEPROM_Status_t EEPROM_ReadPage(uint8_t PageNum , uint8_t * RXBuffer );
+EEPROM_Status_t EEPROM_ReadPage(uint16_t PageNum , uint8_t * RXBuffer );
 
 
-EEPROM_Status_t EEPROM_WritePage(uint8_t PageNum , uint8_t * TXBuffer );
+EEPROM_Status_t EEPROM_WritePage(uint16_t PageNum , uint8_t * TXBuffer );
 
 
 EEPROM_Status_t EEPROM_ReadByteS(uint16_t StartByteNum , uint8_t * RXByte  , uint8_t DataSize);

@@ -46,7 +46,6 @@ typedef enum {DIR_LEFT , DIR_RIGHT , DIR_FORWARD , DIR_BACKWARD , DID_STOP }Moto
 	
 MOTOR_STATUS_t Motor_Init(void);
 
-MOTOR_STATUS_t Motor_Start(void);
 
 MOTOR_STATUS_t Motor_Dir(Motor_DIR_t DIR , uint8_t Speed );
 

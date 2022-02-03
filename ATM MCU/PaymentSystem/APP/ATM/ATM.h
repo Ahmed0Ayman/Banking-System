@@ -54,7 +54,7 @@ void ATM_Operation_mode(void);
 
 
 
-uint8_t * Print_F(uint8_t const * const Str_F);
+uint8_t * ReadStr_F(char const * const Str_F);
 
 
 

@@ -5,6 +5,7 @@
 
 #define  F_CPU 16000000
 #include <stdint.h>
+#include <stdlib.h>
 #include <util/delay.h>
 #include "HAL_GPIO.h"
 #include "LCD_Pins.h"

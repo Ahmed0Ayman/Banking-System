@@ -134,7 +134,7 @@ PUBLIC bool AComp_Get(void);
 PUBLIC  void CallBackFun(void (*fun)(void));
 
 
-PUBLIC void ADC_Get_Value_IT(ADC_Handler_t *Handler,ADC_CH_t AdcChannel);
+PUBLIC void ADC_Get_Value_IT(ADC_CH_t AdcChannel);
 
 
 #endif
